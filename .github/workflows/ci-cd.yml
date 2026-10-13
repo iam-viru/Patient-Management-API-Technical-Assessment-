@@ -1,0 +1,71 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build:
+    name: Build, test and publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET (version from global.json)
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore PatientManagement.slnx
+
+      - name: Build
+        run: dotnet build PatientManagement.slnx --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test PatientManagement.slnx --configuration Release --no-build --verbosity normal
+
+      - name: Publish API
+        run: dotnet publish src/PatientManagement.Api/PatientManagement.Api.csproj --configuration Release --no-build --output ${{ runner.temp }}/api
+
+      - name: Upload publish artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: api
+          path: ${{ runner.temp }}/api
+          if-no-files-found: error
+
+  deploy:
+    name: Deploy to Azure App Service
+    needs: build
+    # Only for pushes to main, and only once the App Service name variable exists,
+    # so the workflow stays green before Azure is configured.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.AZURE_WEBAPP_NAME != ''
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.deploy.outputs.webapp-url }}
+    steps:
+      - name: Download publish artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: api
+          path: api
+
+      - name: Deploy
+        id: deploy
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ vars.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: api
