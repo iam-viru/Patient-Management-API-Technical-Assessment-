@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -7,6 +7,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- XML docs feed Swagger; only controllers and DTOs need them, so missing-doc warnings are off -->
     <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <UserSecretsId>cbd3b285-d68f-4438-a46e-a94d91e3eef2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

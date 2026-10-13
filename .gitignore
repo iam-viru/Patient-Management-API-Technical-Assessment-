@@ -485,3 +485,6 @@ $RECYCLE.BIN/
 CLAUDE.md
 CLAUDE.local.md
 .claude/
+
+# Local Azurite storage emulator data
+.azurite/
