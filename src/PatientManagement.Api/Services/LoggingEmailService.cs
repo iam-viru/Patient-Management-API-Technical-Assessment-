@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Options;
+
 using PatientManagement.Api.Options;
 
 namespace PatientManagement.Api.Services;

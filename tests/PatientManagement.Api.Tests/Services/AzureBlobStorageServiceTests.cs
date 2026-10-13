@@ -1,10 +1,13 @@
 using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+
 using Microsoft.Extensions.Logging.Abstractions;
+
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NSubstitute.Extensions;
+
 using PatientManagement.Api.Options;
 using PatientManagement.Api.Services;
 

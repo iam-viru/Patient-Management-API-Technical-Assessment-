@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging.Abstractions;
+
 using PatientManagement.Api.Options;
 using PatientManagement.Api.Services;
 

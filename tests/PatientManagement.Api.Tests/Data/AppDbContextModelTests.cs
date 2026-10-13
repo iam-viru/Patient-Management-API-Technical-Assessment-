@@ -1,5 +1,6 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+
 using PatientManagement.Api.Data;
 using PatientManagement.Api.Models.Entities;
 

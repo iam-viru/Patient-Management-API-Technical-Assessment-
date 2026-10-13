@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+
 using PatientManagement.Api.Models.Entities;
 
 namespace PatientManagement.Api.Data;

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 using PatientManagement.Api.Models.Entities;
 
 namespace PatientManagement.Api.Data.Configurations;

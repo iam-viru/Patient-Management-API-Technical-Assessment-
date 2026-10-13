@@ -7,7 +7,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+
 using NSubstitute;
+
 using PatientManagement.Api.Data;
 using PatientManagement.Api.Services;
 
