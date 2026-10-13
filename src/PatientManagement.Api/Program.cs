@@ -1,0 +1,25 @@
+using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
+using PatientManagement.Api.Data;
+using PatientManagement.Api.Extensions;
+using PatientManagement.Api.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddStorageAndEmailServices();
+builder.Services.AddSingleton(TimeProvider.System);
+builder.Services.AddScoped<IPatientService, PatientService>();
+
+var app = builder.Build();
+
+app.UseHttpsRedirection();
+app.MapControllers();
+
+app.Run();
+
+// Exposes the implicit Program class to WebApplicationFactory in the integration tests.
+public partial class Program;
