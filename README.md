@@ -8,7 +8,7 @@ redirects to it.
 - **Swagger:** `https://<app-name>.azurewebsites.net/swagger`
 - **Health:** `https://<app-name>.azurewebsites.net/health`
 
-## Client brief mapped to the implementation
+## Brief mapped to the implementation
 
 | Brief | How it is satisfied |
 |-------|---------------------|
@@ -265,7 +265,4 @@ patient, add and update a consultation, and check `/health`. The dummy email app
 - No secrets are committed: `appsettings.json` contains empty connection strings; real values come from user
   secrets locally and App Service application settings in Azure.
 - The blob container is private, and stored file names are generated, never taken from the upload.
-- Unhandled errors return a generic 500 without exception details; full details go to the server log.
-- Future improvements: Managed Identity for Blob Storage and Azure SQL (removing connection strings with keys and
-  passwords), OIDC federated credentials for GitHub Actions instead of a publish profile, SAS URLs for pictures,
-  authentication and authorization, and running migrations from the pipeline instead of on startup.
+- Unhandled errors return a generic 500 without exception details; full details go to the server log. 
