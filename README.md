@@ -229,7 +229,7 @@ az webapp config appsettings set --resource-group <resource-group> --name <app-n
 
 `.github/workflows/ci-cd.yml` runs on pushes to `main`, pull requests and manual dispatch. The **build** job
 restores, builds in Release, runs the tests, publishes the API and uploads it as an artifact. The **deploy** job runs
-only on pushes to `main` and only when `AZURE_WEBAPP_NAME` is set, so CI stays green before Azure exists.
+only on pushes and manual runs on `main`, and only when `AZURE_WEBAPP_NAME` is set, so CI stays green before Azure exists.
 
 Configure the repository (Settings > Secrets and variables > Actions):
 
@@ -245,8 +245,8 @@ az resource update --resource-group <resource-group> --namespace Microsoft.Web -
 az webapp deployment list-publishing-profiles --resource-group <resource-group> --name <app-name> --xml
 ```
 
-Then push to `main` to build, test and deploy. (A manual run from the Actions tab builds and tests only; the
-deploy job runs for pushes.) A manual alternative without GitHub Actions:
+Then push to `main`, or start the workflow manually from the Actions tab, to build, test and deploy.
+A manual alternative without GitHub Actions:
 
 ```bash
 dotnet publish src/PatientManagement.Api -c Release -o publish
